@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Dadou 🎆</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+  min-height:100vh;
+  background:radial-gradient(circle at bottom,#0f172a,#020617 80%);
+  color:white;
+}/* stars */ .stars{ position:fixed; width:100%; height:100%; } .star{ position:absolute; width:2px; height:2px; background:white; border-radius:50%; animation:twinkle 2s infinite alternate; }
+
+@keyframes twinkle{ from{opacity:.2} to{opacity:1} }
+
+.card{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(30,41,59,.85); backdrop-filter:blur(10px); padding:40px 35px; border-radius:25px; text-align:center; box-shadow:0 0 45px rgba(99,102,241,.7); max-width:90%; }
+
+h1{ font-size:42px; color:#a78bfa; text-shadow:0 0 20px #6366f1; margin-bottom:10px; }
+
+p{ font-size:18px; opacity:.9; }
+
+button{ margin-top:25px; padding:14px 30px; font-size:18px; border:none; border-radius:30px; cursor:pointer; background:linear-gradient(45deg,#6366f1,#8b5cf6); color:white; box-shadow:0 0 20px rgba(99,102,241,.8); transition:.3s; }
+
+button:hover{ transform:scale(1.08); box-shadow:0 0 35px rgba(139,92,246,1); }
+
+#msg{ margin-top:20px; font-size:20px; color:#93c5fd; font-weight:600; }
+
+.balloon{ position:absolute; bottom:-120px; width:60px; height:80px; border-radius:50%; animation:float 12s linear infinite; }
+
+.balloon:after{ content:''; position:absolute; width:2px; height:60px; background:#aaa; top:80px; left:50%; }
+
+@keyframes float{ to{transform:translateY(-120vh)} }
+
+.firework{ position:absolute; width:8px; height:8px; border-radius:50%; opacity:0; pointer-events:none; box-shadow:0 0 12px currentColor,0 0 25px currentColor; }
+
+.confetti{ position:absolute; width:8px; height:8px; opacity:.9; }
+
+/* mobile */ @media(max-width:600px){ h1{font-size:32px} p{font-size:16px} button{font-size:16px;padding:12px 24px} }
+
+</style>
+</head>
+<body><div class="stars" id="stars"></div><div class="card">
+<h1>🎂 Happy Birthday Dadou 🎉</h1>
+<p>Tonight the sky celebrates you!</p>
+<button onclick="startCelebration()">🎉 Start Celebration</button>
+<div id="msg"></div>
+</div><audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio><script>
+
+function createStars(){
+ for(let i=0;i<120;i++){
+  let s=document.createElement('div')
+  s.className='star'
+  s.style.left=Math.random()*100+'vw'
+  s.style.top=Math.random()*100+'vh'
+  s.style.animationDuration=(1+Math.random()*3)+'s'
+  document.getElementById('stars').appendChild(s)
+ }
+}
+
+function balloons(){
+ const colors=['#60a5fa','#6366f1','#8b5cf6','#a78bfa','#38bdf8']
+ for(let i=0;i<18;i++){
+  let b=document.createElement('div')
+  b.className='balloon'
+  b.style.left=Math.random()*100+'vw'
+  b.style.background=colors[Math.floor(Math.random()*colors.length)]
+  b.style.animationDuration=(8+Math.random()*6)+'s'
+  document.body.appendChild(b)
+ }
+}
+
+function launchFireworks(){
+ for(let i=0;i<120;i++){
+  let f=document.createElement('div')
+  f.className='firework'
+  f.style.color='hsl('+Math.random()*360+',100%,60%)'
+  f.style.left=Math.random()*100+'vw'
+  f.style.top=Math.random()*70+'vh'
+  document.body.appendChild(f)
+  animateFirework(f)
+ }
+}
+
+function animateFirework(f){
+ let angle=Math.random()*2*Math.PI
+ let distance=80+Math.random()*200
+ f.style.opacity=1
+ f.style.transition='all 1.6s ease-out'
+ setTimeout(()=>{
+  f.style.transform=`translate(${Math.cos(angle)*distance}px,${Math.sin(angle)*distance}px)`
+  f.style.opacity=0
+ },20)
+ setTimeout(()=>f.remove(),1600)
+}
+
+function confetti(){
+ for(let i=0;i<120;i++){
+  let c=document.createElement('div')
+  c.className='confetti'
+  c.style.left=Math.random()*100+'vw'
+  c.style.background='hsl('+Math.random()*360+',80%,60%)'
+  document.body.appendChild(c)
+  c.style.transition='transform 3s linear'
+  setTimeout(()=>c.style.transform='translateY(110vh)',20)
+  setTimeout(()=>c.remove(),3000)
+ }
+}
+
+function startCelebration(){
+ document.getElementById('msg').innerText='✨ Happy Birthday Dadou! May your life shine like these fireworks! ✨'
+ launchFireworks()
+ confetti()
+ document.getElementById('music').play()
+}
+
+createStars()
+balloons()
+
+</script></body>
+</html>
